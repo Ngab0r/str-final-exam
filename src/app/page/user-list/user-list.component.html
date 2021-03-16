@@ -1,19 +1,40 @@
+<div>
+  <span>Search by Name:</span> <input class="form-control mr-sm-2" #filterName type="text" placeholder="Search"
+    (keyup)="onChangePhrase($event)">
+</div>
+
+
 <div class="row">
   <div class="col-12 mt-2">
     <h2>User List</h2>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Active</th>
+          <th (click)="selectColumnForSort('id')">#
+            <i *ngIf="sorter.sortAscend && sorter.sortKey=='id'" class="fa fa-angle-down fa-2x sorterSign"></i>
+            <i *ngIf="!sorter.sortAscend && sorter.sortKey=='id'" class="fa fa-angle-up fa-2x sorterSign"></i>
+          </th>
+          <th (click)="selectColumnForSort('name')">Name
+            <i *ngIf="sorter.sortAscend && sorter.sortKey=='name'" class="fa fa-angle-down fa-2x sorterSign"></i>
+            <i *ngIf="!sorter.sortAscend && sorter.sortKey=='name'" class="fa fa-angle-up fa-2x sorterSign"></i>
+          </th>
+          <th (click)="selectColumnForSort('email')">Email
+            <i *ngIf="sorter.sortAscend && sorter.sortKey=='email'" class="fa fa-angle-down fa-2x sorterSign"></i>
+            <i *ngIf="!sorter.sortAscend && sorter.sortKey=='email'" class="fa fa-angle-up fa-2x sorterSign"></i>
+          </th>
+          <th (click)="selectColumnForSort('address')">Address
+            <i *ngIf="sorter.sortAscend && sorter.sortKey=='address'" class="fa fa-angle-down fa-2x sorterSign"></i>
+            <i *ngIf="!sorter.sortAscend && sorter.sortKey=='address'" class="fa fa-angle-up fa-2x sorterSign"></i>
+          </th>
+          <th (click)="selectColumnForSort('active')">Active>
+            <i *ngIf="sorter.sortAscend && sorter.sortKey=='active'" class="fa fa-angle-down fa-2x sorterSign"></i>
+            <i *ngIf="!sorter.sortAscend && sorter.sortKey=='active'" class="fa fa-angle-up fa-2x sorterSign"></i>
+          </th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$ | async">
+        <tr *ngFor="let user of list | filter:filterPhrase | sorter:sorter">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
@@ -24,7 +45,7 @@
               <button [routerLink]="['user/' + user.id]" class="btn btn-info">
                 <i class="fa fa-pencil"></i>
               </button>
-              <button class="btn btn-danger">
+              <button class="btn btn-danger" (click)="delete(user)">
                 <i class="fa fa-trash"></i>
               </button>
             </div>
