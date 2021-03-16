@@ -7,7 +7,6 @@ import { Sorter } from '../model/sorter';
 export class SorterPipe implements PipeTransform {
 
   transform(value: any[], sorter: Sorter): any[] {
-    console.log(sorter.sortKey);
 
     if (typeof (value) === 'undefined' || !Array.isArray(value) || typeof (sorter.sortKey) === 'undefined') { return value };
 
