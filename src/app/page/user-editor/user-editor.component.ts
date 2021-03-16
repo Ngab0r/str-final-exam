@@ -28,6 +28,7 @@ export class UserEditorComponent implements OnInit {
       return this.userService.get(Number(params.id));
     })
   );
+  useredit: User = new User();
 
   constructor(
     private userService: UserService,
@@ -36,24 +37,30 @@ export class UserEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user$.subscribe(user => this.useredit = user);
   }
 
 
+
+
+
   onFormSubmit(form: NgForm): void {
+    console.log('submit');
     if (!form.valid) {
+      console.log('not valid');
       return;
     }
-    let useredit = new User();
-    this.user$.subscribe(user => useredit = user);
-    if (useredit.id === null || useredit.id === 0) {
-      this.userService.create(useredit);
-      // this.router.navigate(['']);
+    this.useredit = form.value;
+    if (this.useredit.id === null || this.useredit.id === 0) {
+      console.log('new');
+      this.userService.create(this.useredit);
+      this.router.navigate(['']);
 
     } else {
-      () => {
-        this.userService.update(useredit);
-        // this.router.navigate(['']);
-      }
+      console.log('update');
+      this.userService.update(this.useredit);
+      this.router.navigate(['']);
+
 
     }
   }

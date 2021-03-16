@@ -7,6 +7,7 @@ import { Sorter } from '../model/sorter';
 export class SorterPipe implements PipeTransform {
 
   transform(value: any[], sorter: Sorter): any[] {
+    console.log(sorter.sortKey);
 
     if (typeof (value) === 'undefined' || !Array.isArray(value) || typeof (sorter.sortKey) === 'undefined') { return value };
 
@@ -17,7 +18,6 @@ export class SorterPipe implements PipeTransform {
       return isAscending ? a - b : b - a;
     }
     else {
-      console.log('valami');
       return isAscending ? a.toString().toLocaleLowerCase().localeCompare(b.toString().toLocaleLowerCase()) :
         b.toString().toLocaleLowerCase().localeCompare(a.toString().toLocaleLowerCase());
     }

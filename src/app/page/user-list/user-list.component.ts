@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Sorter } from 'src/app/model/sorter';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
+import { SorterPipe } from '../../pipe/sorter.pipe';
 
 @Component({
   selector: 'app-user-list',
@@ -33,6 +34,8 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  sorterPipe: SorterPipe = new SorterPipe();
+
 
   delete(user: User): void {
     if (confirm("Are you sure to delete " + user.name)) {
@@ -47,6 +50,7 @@ export class UserListComponent implements OnInit {
   selectColumnForSort(col: string): void {
     this.sorter.sortKey === col ? this.sorter.sortAscend = !this.sorter.sortAscend : this.sorter.sortAscend = true;
     this.sorter.sortKey = col;
+    this.list = this.sorterPipe.transform(this.list, this.sorter);
   }
 
 

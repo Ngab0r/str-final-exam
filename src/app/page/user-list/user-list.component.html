@@ -1,8 +1,12 @@
-<div>
+<div class="mt-2">
   <span>Search by Name:</span> <input class="form-control mr-sm-2" #filterName type="text" placeholder="Search"
     (keyup)="onChangePhrase($event)">
 </div>
 
+
+<div>
+  <button class="btn btn-primary w-100 mt-5" [routerLink]="['user/0']">Add new User</button>
+</div>
 
 <div class="row">
   <div class="col-12 mt-2">
@@ -26,7 +30,7 @@
             <i *ngIf="sorter.sortAscend && sorter.sortKey=='address'" class="fa fa-angle-down fa-2x sorterSign"></i>
             <i *ngIf="!sorter.sortAscend && sorter.sortKey=='address'" class="fa fa-angle-up fa-2x sorterSign"></i>
           </th>
-          <th (click)="selectColumnForSort('active')">Active>
+          <th (click)="selectColumnForSort('active')">Active
             <i *ngIf="sorter.sortAscend && sorter.sortKey=='active'" class="fa fa-angle-down fa-2x sorterSign"></i>
             <i *ngIf="!sorter.sortAscend && sorter.sortKey=='active'" class="fa fa-angle-up fa-2x sorterSign"></i>
           </th>

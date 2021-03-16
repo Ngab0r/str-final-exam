@@ -59,20 +59,18 @@ export class UserService {
    */
   create(user: User): void {
     this.http.post<User>(
-      `${this.endpoint}/${user.id}`,
+      `${this.endpoint}`,
       user
     ).subscribe(
       () => this.getAll()
     );
   }
 
-  update(user: User): Observable<User> {
-    return this.http.patch<User>(
+  update(user: User): void {
+    this.http.patch<User>(
       `${this.endpoint}/${user.id}`,
       user
-    ).pipe(
-      tap(() => this.getAll())
-    );
+    ).subscribe(() => this.getAll());
   }
 
 
