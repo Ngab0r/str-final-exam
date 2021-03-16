@@ -14,7 +14,6 @@ export class SorterPipe implements PipeTransform {
   }
   static compare(a: any, b: any, isAscending: boolean): number {
     if (typeof (a) === 'number' && typeof (b) === 'number') {
-      console.log('valami');
       return isAscending ? a - b : b - a;
     }
     else {
